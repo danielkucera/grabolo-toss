@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>Grabolo Toss</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<script>
+var objects = [ "car", "figure", "goose", "pig", "rabbit", "tree" ];
+var colors = [ "white", "black", "red", "green", "yellow", "blue" ];
+var taken = [];
+
+function random6() {
+	return Math.floor(Math.random() * 6);
+}
+function randomAvail(){
+	do {
+		r1 = random6();
+		r2 = random6();
+		rs = r1*10 + r2;
+	} while (taken.includes(rs))
+	taken.push(rs)
+	return [ r1, r2 ]
+}
+function toss(){
+	//alert('toss');
+	obj = document.getElementById("object")
+
+	if (taken.length == 36){
+		alert("End of game!");
+		taken = [];
+		return;
+	}
+	r = randomAvail();
+	console.log(taken.length, taken);
+	filepath = "img/" + objects[r[0]] + ".png";
+	style = "background-color:"+colors[r[1]]+";";
+	obj.src = filepath;
+	obj.style = style;
+}
+</script>
+<body>
+<img id="object" src="img/car.png" style="background-color:red;" onclick="toss();">
+</body>
+</html>
